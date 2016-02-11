@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('seoTool.oauth')
+		.module('mm.oauth')
 		.provider('oAuthService', oAuthProvider);
 
 	function oAuthProvider() {
