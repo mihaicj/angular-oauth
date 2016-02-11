@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('mm.oauth')
+		.module('mm.oauth', [])
 		.provider('oAuthService', oAuthProvider);
 
 	function oAuthProvider() {
