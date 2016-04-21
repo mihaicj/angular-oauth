@@ -37,7 +37,7 @@
 			return config;
 		};
 
-		/** @ngInject */
+        this.$inject = ['$q', '$http'];
 		this.$get = function ($q, $http) {
 			return new Oauth($q, $http, config);
 		};
