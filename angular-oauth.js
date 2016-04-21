@@ -48,7 +48,8 @@
 			isAuthenticated: isAuthenticated,
 			generateAccessToken: generateAccessToken,
 			refreshAccessToken: refreshAccessToken,
-			getOAuthData: getOAuthData
+			getOAuthData: getOAuthData,
+			removeAccessToken: removeAccessToken
 		};
 
 		/**
@@ -118,6 +119,13 @@
 			} catch(error) {
 				return {};
 			}
+		}
+
+		/**
+		 * Removes access token
+		 */
+		function removeAccessToken(){
+			localStorage.removeItem(config.storageKey);
 		}
 	}
 })();
