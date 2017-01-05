@@ -37,7 +37,7 @@
 			return config;
 		};
 
-        this.$inject = ['$q', '$http'];
+		this.$inject = ['$q', '$http'];
 		this.$get = function ($q, $http) {
 			return new Oauth($q, $http, config);
 		};
@@ -47,6 +47,7 @@
 		return {
 			isAuthenticated: isAuthenticated,
 			generateAccessToken: generateAccessToken,
+			generateAccessTokenWithGrant: generateAccessTokenWithGrant,
 			refreshAccessToken: refreshAccessToken,
 			getOAuthData: getOAuthData,
 			removeAccessToken: removeAccessToken
@@ -74,6 +75,21 @@
 		}
 
 		/**
+		 * Requests a new access token using a grant type and api key
+		 * @param {object} data
+		 * @returns {promise}
+		 */
+		function generateAccessTokenWithGrant(data) {
+			data.client_id = config.clientId;
+			data.client_secret = config.clientSecret;
+
+			return $http.post(config.baseUrl + config.grantPath, data)
+				.then(function (response) {
+					return storeOAuthData(response.data);
+				});
+		}
+
+		/**
 		 * Request a new access token using the stored refresh token
 		 * @returns {promise}
 		 */
@@ -84,7 +100,7 @@
 				return $q.reject();
 			}
 
-			var	data = {
+			var data = {
 				refresh_token: getOAuthData().refresh_token,
 				grant_type: 'refresh_token',
 				client_id: config.clientId,
@@ -116,7 +132,7 @@
 
 			try {
 				return JSON.parse(jsonData);
-			} catch(error) {
+			} catch (error) {
 				return {};
 			}
 		}
@@ -124,7 +140,7 @@
 		/**
 		 * Removes access token
 		 */
-		function removeAccessToken(){
+		function removeAccessToken() {
 			localStorage.removeItem(config.storageKey);
 		}
 	}
