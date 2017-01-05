@@ -76,8 +76,7 @@
 
 		/**
 		 * Requests a new access token using a grant type and api key
-		 * @param {string} grantType
-		 * @param {string} apiKey
+		 * @param {object} data
 		 * @returns {promise}
 		 */
 		function generateAccessTokenWithGrant(data) {
